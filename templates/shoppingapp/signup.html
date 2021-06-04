@@ -1,0 +1,41 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+    <style>
+        input {
+            margin-top: 3vh;
+            margin-bottom: 3vh;
+            text-align: center;
+
+        }
+    </style>
+
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand">Welcome to FoodieZone! <br>   Serving Good Food for Good Moments</a>
+</nav>
+
+    {% for message in messages %}
+    <div class="alert alert-secondary">
+        <p style="text-align: center;">{{message}}</p>
+    </div>
+    {% endfor %}
+
+
+ <div class="container-fluid" style="position: relative; height: 900px; background-size: cover; 
+background-image: url({%static 'img/food2.jpg' %});">
+    <div style="position: absolute; top: 50px; right: 545px; width: 500px; height: 450px; background-color:DarkCyan;
+    padding: 40px; opacity: 0.95" class="container">
+        <h1 style="text-align: center; color:white"><b>Register Here</h1>
+        <form method="post" action="{% url "registeruser" %}">
+            {% csrf_token %}
+            <input class="form-control" style="margin-bottom: 10px" placeholder="username" type="text" name="username" id="" required>
+            <input class="form-control" style="margin-bottom: 10px" placeholder="password" type="password" name="password" id="" required>
+            <input class="form-control" style="margin-bottom: 10px" placeholder="re-enter password" type="password" name="repassword" id="" required>
+            <input style="display: block; margin: auto; margin-top: 20px; color: DarkGreen" class="btn btn-success" type="submit" value="Sign Up" name=""></input>
+            <p style="color: white; font-size: 25px">Already have an account?  <span><a style="color: white;" href="{% url "loginpage" %}"><u>login</u></a></span> here</p>
+        </form>
+    </div>
+</div>       
+    
+{% endblock %}

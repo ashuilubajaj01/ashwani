@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    
+    ul{
+        display: flex;
+    }
+
+    ul li{
+        list-style: none;
+        font-size: 1.5rem;
+    }
+
+    ul li a{
+        text-decoration: none;
+        padding: 8px 22px;
+        border-radius: 10px;
+    }
+
+    ul li a:hover{
+        color: black;
+        background: white; 
+    }
+</style>
+
+<nav class="navbar navbar-light bg-light" style="background-color: Sienna">
+    <ul>
+        <li><a href="{% url 'cartpage' %}">View Cart</a></li>
+        <li><a href="{% url 'orders' %}">My orders</a></li>
+        
+    </ul>
+     <a href="{% url 'logoutuser' %}" style="margin-left: 10px;" class="btn btn-danger">logout</a>
+</nav>
+
+{% for message in messages %}
+    <div class="alert alert-secondary">
+        <p style="text-align: center; font-size: 20px">{{message}}</p>
+    </div>
+{% endfor %}
+
+
+
+    
+</div>    
+<br>
+
+<br>
+<div class="container">
+            <div class="row">
+                {% for cart in cartitems %}
+                 <div class="text-center col-lg-4 d-flex text-dark justify-content-center">
+                     <div class="card bg-light mb-3" style="min-width: 20rem;">
+                         
+                         <div class="card-body">
+                           
+
+                        <img src="{{cart.item.cover.url}}" style="width: 20vw;height: 20vh;" alt="">
+                         </div>
+                         <h3 class="card-header">{{cart.item.name}}</h3>
+                         <div class="card-title">Price : {{cart.item.price}}</div>
+                         <div class="container">
+                             <a href="/cart/delete/{{cart.id}}/" class="btn btn-danger">Delete</a>
+                         </div>
+                       </div>
+                 </div>
+                 {% endfor %}
+        </div>
+    </div>
+ 
+  
+</div>
+
+
+<form class="d-flex container" style="width: fit-content;" action="{% url 'placeorder' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="promo" placeholder="promo" class="form-control-sm text-center">
+    <input type="submit" value="place order" class="btn btn-success">
+</form>
+
+
+{% endblock %}

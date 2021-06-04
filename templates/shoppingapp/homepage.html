@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    ul{
+        display: flex;
+    }
+
+    ul li{
+        list-style: none;
+        font-size: 1.5rem;
+    }
+
+    ul li a{
+        text-decoration: none;
+        padding: 8px 22px;
+        border-radius: 10px;
+    }
+
+    ul li a:hover{
+        color: black;
+        background: white; 
+    }
+</style>
+
+<nav class="navbar navbar-light bg-light" style="background-color: Sienna">
+    <ul>
+        <li><a href="{% url 'cartpage' %}">View Cart</a></li>
+        <li><a href="{% url 'orders' %}">My orders</a></li>
+        
+    </ul>
+     <a href="{% url 'logoutuser' %}" style="margin-left: 10px;" class="btn btn-danger">logout</a>
+</nav>
+
+<div style="height: 410px; background-image: url({%static 'img/i.jpg' %}); background-repeat: no-repeat;">
+    <h1 class="h-primary"; style="font-size: 50px; text-align: center; padding: 10px; font-family: Arial, Helvetica, sans-serif">Welcome to FoodieZone {{user.username}}</h1>
+    <p style="padding-left: 20px; font-size: 25px; font-family: Lucida Console, Courier New, monospace; color: OldLace">Food is cooked in hygienic conditions to ensure good health.</p>
+    <p style="padding-left: 20px; font-size: 25px; font-family: Lucida Console, Courier New, monospace; color: OldLace">Your food will be delivered at your doorstep. To ensure contactless delivery, the food parcel is kept at your doorstep.</p>
+    <p style="padding-left: 20px; font-size: 25px; padding-bottom: 20px; font-family: Lucida Console, Courier New, monospace; color: OldLace">The temperature of the delivery boy is checked and ensured if he is in good health</p>
+    <p style="text-align: center; font-size: 35px; color: black; padding-bottom: 30px"><b> Shop By Restaurants</p> 
+</div>
+
+    
+
+
+
+{% for message in messages %}
+<p style="color: green; text-align: center">{{message}}</p>
+{% endfor %}
+
+<div class="container mb-5">
+
+    <div class="row justify-content-center mt-1">
+        <div class="col-md-12 col-sm-12 p-4">
+        <div class="list-group container" style="width: 100vw; height: 45vw">
+    
+            <form method="POST">
+                {% csrf_token %}
+                <div class="pt-5">
+                    {% for restaurent in restaurents %}
+                    <div class="row">
+                        
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex flex-row">
+                                <div class="form-group form-check">
+                                    
+                                    <label class="form-check-label" style="font-size: 25px"><a href="/restaurent/{{restaurent.id}}/">{{restaurent.name}}</a></label>
+                                </div>
+                                <p class="font-weight-bold pl-4" style="font-size: 25px">{{ restaurent.place }}</p>
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <hr />
+                {% endfor %}
+    
+          
+                </div>
+          </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    ul{
+        display: flex;
+    }
+
+    ul li{
+        list-style: none;
+        font-size: 1.5rem;
+    }
+
+    ul li a{
+        text-decoration: none;
+        padding: 8px 22px;
+        border-radius: 10px;
+    }
+
+    ul li a:hover{
+        color: black;
+        background: white; 
+    }
+</style>
+
+<nav class="navbar navbar-light bg-light" style="background-color: Sienna">
+    <ul>
+        <li><a href="{% url 'cartpage' %}">View Cart</a></li>
+        
+        
+    </ul>
+     <a href="{% url 'logoutuser' %}" style="margin-left: 10px;" class="btn btn-danger">logout</a>
+</nav>
+<br>
+
+<br>
+
+
+
+
+      
+
+        <div class="container">
+
+                {% for order in orders %}
+                
+
+                 <div class="list-group container" style="width: 40vw;">
+                    <a  class="list-group-item list-group-item-action active">Order id : {{order.id}}</a>
+                    
+                    <table class="table table-striped">
+
+                    
+                    {% for item in order.items %}
+        
+                        <a class="d-flex justify-content-between list-group-item list-group-item-action text-center">
+                            <p>{{item.0}}</p>
+                            <p>{{item.1}}</p>
+                            
+                        </a>
+                       
+                        
+
+                    {% endfor %}
+
+                     </table>
+                    <table class="table table-striped">
+
+                   
+                    
+                     <tr>
+                         <td>total : </td>
+                         <td>{{order.total_price}}</td>
+                     </tr>
+                     <tr>
+                        <td>discount : </td>
+                        <td>{{order.discount}}</td>
+                    </tr>
+                    <tr>
+                        <td>final price : </td>
+                        <td>{{order.final_price}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>delivery</td>
+                        {% if order.delivery_date %}
+                        <td>{{order.delivery_date}}</td>
+                        {% else %}
+                        <td>not updated yet</td>
+                        {% endif %}
+                    </tr>
+                </table>
+
+                 {% if today_date < order.delivery_date %}
+                 <div class="container" style="width: fit-content;">
+                    <a href="/cancelorder/{{order.id}}/" class="btn btn-danger">cancel order</a>
+                </div>
+                {% endif %}
+                    <br><br>
+
+
+
+                 {% endfor %}
+        </div>
+    </div>
+     
+
+
+   
+    
+    
+  
+</div>
+
+
+{% endblock %}

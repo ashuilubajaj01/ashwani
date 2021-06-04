@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    ul{
+        display: flex;
+    }
+
+    ul li{
+        list-style: none;
+        font-size: 1.5rem;
+    }
+
+    ul li a{
+        text-decoration: none;
+        padding: 8px 22px;
+        border-radius: 10px;
+    }
+
+    ul li a:hover{
+        color: black;
+        background: white; 
+    }
+    
+</style>
+
+<nav class="navbar navbar-light bg-light" style="background-color: Sienna">
+    <ul>
+        <li><a href="{% url 'cartpage' %}">View Cart</a></li>
+        <li><a href="{% url 'orders' %}">My orders</a></li>
+        
+    </ul>
+     <a href="{% url 'logoutuser' %}" style="margin-left: 10px;" class="btn btn-danger">logout</a>
+</nav>
+
+{% for message in messages %}
+<div class="text-center alert alert-dismissible alert-success">
+    
+    <p style="margin: 0px;">{{message}}</p>
+    
+</div>
+{% endfor %}
+<br>
+
+<br>
+
+
+    <div class="d-flex">
+
+     
+
+        <div class="container">
+            <div class="pt-5">
+                <table  class="pure-table pure-table-horizontal" style="width: 100%; border-spacing: 15px" >
+                <tr>
+                    <th style="font-size: 25px">Image</th>
+                    <th style="font-size: 25px">Name</th>
+                    <th style="font-size: 25px">Description</th>
+                    <th style="font-size: 25px">Price</th>
+                    <th></th>
+                </tr>
+                    {% for item in items %}
+                    <tr style="padding: 5px">
+                        <td><img class="rounded" src="{{ item.cover.url }}" width="145" height="100"/><hr/></td>
+                        <td  style="font-size: 20px">{{ item.name }}</td>
+                        
+                        <td  style="font-size: 20px">{{ item.description }}</td>
+                        
+                        <td  style="font-size: 20px">{{ item.price }}</td>
+                        <td><a href="/cart/add/{{item.id}}/" class="btn btn-primary">Add to cart</a></td>
+                        
+                    </tr>
+                    
+                                </div>
+                            
+                        </div>
+                    </div>
+                    
+                {% endfor %}
+                </table>
+        </div>
+    </div>
+     
+</div>
+
+   
+    
+    
+  
+</div>
+
+<div class="form-group pt-3">
+                    <label for="name"; style="padding-left: 20px">Full Name</label>
+                    <input required class="form-control" type="text" placeholder="Your Name" name="name"; style="padding-left: 20px" />
+                </div>
+
+                <div class="form-group pt-3">
+                    <label for="email"; style="padding-left: 20px">Email Address</label>
+                    <input required class="form-control" type="text" placeholder="example@company.com" name="email"; style="padding-left: 20px" />
+                </div>
+
+                <div class="form-group pt-3">
+                    <label for="street" style="padding-left: 20px">Address</label>
+                    <input required class="form-control" type="text" placeholder="1234 Main St" name="address"; style="padding-left: 20px" />
+                </div>
+                </div>
+                <a href="{% url 'cartpage' %}" style="margin-left: 10px;" class="btn btn-outline-primary">Move to cart</a>
+                </div>
+{% endblock %}
