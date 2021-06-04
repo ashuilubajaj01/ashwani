@@ -1,7 +1,0 @@
-asgiref
-Django
-gunicorn
-Pillow
-pytz
-sqlparse
-whitenoise
